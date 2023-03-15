@@ -16,6 +16,7 @@ import Account from '../pages/Account';
 import ListUsers from '../pages/Account/components/Users';
 import DetailsUsers from '../pages/Account/components/Details';
 import UserComment from '../pages/Account/components/UserComment';
+import Layout from '../pages/Layout';
 
 export const routes = createBrowserRouter([
     {
@@ -25,74 +26,95 @@ export const routes = createBrowserRouter([
     },
     {
         path: "/home",
-        element: <Home />,
+        element: <Layout />,
         errorElement: <Error />,
         children: [
             {
-                path: "/home/users",
-                element: <Users />,
-                loader: getLoaderUsers,
-            },
-            {
-                path: "/home/users/:id",
-                element: <Details />,
-                loader: getUserById,
+                path: "/home",
+                element: <Home />,
+                errorElement: <Error />,
                 children: [
                     {
-                        path: "/home/users/:id/comments",
-                        element: <Commments />,
-                        loader: getCommentByUser,
+                        path: "/home/users",
+                        element: <Users />,
+                        loader: getLoaderUsers,
                     },
+                    {
+                        path: "/home/users/:id",
+                        element: <Details />,
+                        loader: getUserById,
+                        children: [
+                            {
+                                path: "/home/users/:id/comments",
+                                element: <Commments />,
+                                loader: getCommentByUser,
+                            },
+                        ]
+                    }
                 ]
-            }
+            },
         ]
     },
     {
         path: "/sales",
-        element: <Sales />,
+        element: <Layout />,
         errorElement: <Error />,
         children: [
             {
-                path: "/sales/overview",
-                element: <Overview />,
-                action: savePost
+                path: "/sales",
+                element: <Sales />,
+                errorElement: <Error />,
+                children: [
+                    {
+                        path: "/sales/overview",
+                        element: <Overview />,
+                        action: savePost
+                    },
+                    {
+                        path: "/sales/subscriptions",
+                        element: <Subscriptions />
+                    },
+                    {
+                        path: "/sales/Invoices",
+                        element: <Invoices />
+                    },
+                    {
+                        path: "/sales/customers",
+                        element: <Customers />
+                    }
+                ]
             },
-            {
-                path: "/sales/subscriptions",
-                element: <Subscriptions />
-            },
-            {
-                path: "/sales/Invoices",
-                element: <Invoices />
-            },
-            {
-                path: "/sales/customers",
-                element: <Customers />
-            }
         ]
     },
     {
         path: "/account",
-        element: <Account />,
+        element: <Layout />,
         errorElement: <Error />,
         children: [
             {
-                path: "/account/users",
-                element: <ListUsers />,
-                loader: getLoaderUsers,
-            },
-            {
-                path: "/account/userdetails/:id",
-                element: <DetailsUsers />,
-                loader: getUserById,
+                path: "/account",
+                element: <Account />,
+                errorElement: <Error />,
                 children: [
                     {
-                        path: "/account/userdetails/:id/comments",
-                        element: <UserComment />,
-                        loader: getCommentByUser
-                    }
-                ]
-            },
-        ],
+                        path: "/account/users",
+                        element: <ListUsers />,
+                        loader: getLoaderUsers,
+                    },
+                    {
+                        path: "/account/userdetails/:id",
+                        element: <DetailsUsers />,
+                        loader: getUserById,
+                        children: [
+                            {
+                                path: "/account/userdetails/:id/comments",
+                                element: <UserComment />,
+                                loader: getCommentByUser
+                            }
+                        ]
+                    },
+                ],
+            }
+        ]
     }
 ])

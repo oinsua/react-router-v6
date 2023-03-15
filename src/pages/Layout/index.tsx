@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import styles from './layout.module.css'
 
-export default function Layout({ children }: any) {
+export default function Layout() {
     return (
         <div className={styles.wrapper}>
             <aside className={styles.aside}>
@@ -18,9 +18,7 @@ export default function Layout({ children }: any) {
                 </nav>
             </aside>
             <main className={styles.main}>
-                {
-                    children
-                }
+                <Outlet />
             </main>
         </div>
 
