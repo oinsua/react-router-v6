@@ -10,7 +10,7 @@ export default function Layout({ children }: any) {
                 <nav>
                     <ul className={styles.ul}>
                         <li><Link to={`/home`}>Home</Link></li>
-                        <li>Accounts</li>
+                        <li><Link to={`/account`}>Accounts</Link></li>
                         <li><Link to={`/sales/overview`}>Sales</Link></li>
                         <li>Expenses</li>
                         <li>Reports</li>

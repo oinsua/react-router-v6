@@ -1,5 +1,6 @@
-import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
+import { getCommentByUser, getLoaderUsers, getUserById, savePost } from './functions';
+
 import Commments from '../components/Comments'
 import Customers from '../components/Customers'
 import Details from '../components/Details'
@@ -11,6 +12,10 @@ import Error from '../pages/Error'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Sales from '../pages/Sales'
+import Account from '../pages/Account';
+import ListUsers from '../pages/Account/components/Users';
+import DetailsUsers from '../pages/Account/components/Details';
+import UserComment from '../pages/Account/components/UserComment';
 
 export const routes = createBrowserRouter([
     {
@@ -26,28 +31,17 @@ export const routes = createBrowserRouter([
             {
                 path: "/home/users",
                 element: <Users />,
-                loader: ({ request, params }) => {
-                    return fetch('https://jsonplaceholder.typicode.com/users', { signal: request.signal })
-                        .then(res => res.json())
-                },
+                loader: getLoaderUsers,
             },
             {
                 path: "/home/users/:id",
                 element: <Details />,
-                loader: ({ request, params }) => {
-                    console.log('loader id:', params.id)
-                    return fetch(`https://jsonplaceholder.typicode.com/users/${params.id}`, { signal: request.signal })
-                        .then(res => res.json())
-                },
+                loader: getUserById,
                 children: [
                     {
                         path: "/home/users/:id/comments",
                         element: <Commments />,
-                        loader: ({ request, params }) => {
-                            console.log('loader id:', params.id)
-                            return fetch(`https://jsonplaceholder.typicode.com/users/${params.id}/comments`, { signal: request.signal })
-                                .then(res => res.json())
-                        },
+                        loader: getCommentByUser,
                     },
                 ]
             }
@@ -61,25 +55,7 @@ export const routes = createBrowserRouter([
             {
                 path: "/sales/overview",
                 element: <Overview />,
-                action: async ({ request, params }) => {
-                    switch (request.method) {
-                        case "POST": {
-                            let formData = await request.formData();
-                            const res = await fetch(`https://jsonplaceholder.typicode.com/posts`, {
-                                method: "POST",
-                                body: formData
-                            })
-                            console.log('res: ', res)
-                            if (!res?.ok) {
-                                throw ('Error 404 bad request')
-                            }
-
-                        }
-                        default: {
-                            throw new Response("", { status: 405 });
-                        }
-                    }
-                }
+                action: savePost
             },
             {
                 path: "/sales/subscriptions",
@@ -94,5 +70,29 @@ export const routes = createBrowserRouter([
                 element: <Customers />
             }
         ]
+    },
+    {
+        path: "/account",
+        element: <Account />,
+        errorElement: <Error />,
+        children: [
+            {
+                path: "/account/users",
+                element: <ListUsers />,
+                loader: getLoaderUsers,
+            },
+            {
+                path: "/account/userdetails/:id",
+                element: <DetailsUsers />,
+                loader: getUserById,
+                children: [
+                    {
+                        path: "/account/userdetails/:id/comments",
+                        element: <UserComment />,
+                        loader: getCommentByUser
+                    }
+                ]
+            },
+        ],
     }
 ])
