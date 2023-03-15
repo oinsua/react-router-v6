@@ -1,6 +1,4 @@
-import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
-import Layout from '../Layout'
 import styles from './account.module.css'
 
 export default function Account() {

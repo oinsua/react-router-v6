@@ -1,36 +1,31 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router-dom";
+import { ActionFunctionArgs, json, LoaderFunctionArgs } from "react-router-dom";
+import { getUserById, getUserCommentsById, getUsers, savePostLoader } from "../services/fetchApi";
 
 
 export function getLoaderUsers({ request, params }: LoaderFunctionArgs): Promise<{} | null> {
-    return fetch('https://jsonplaceholder.typicode.com/users', { signal: request.signal })
-        .then(res => res.json())
+    return getUsers({ signal: request.signal })
 }
 
-export function getUserById({ request, params }: LoaderFunctionArgs): Promise<{} | null> {
+export function getLoaderUserById({ request, params }: LoaderFunctionArgs): Promise<{} | null> {
 
-    return fetch(`https://jsonplaceholder.typicode.com/users/${params.id}`, { signal: request.signal })
-        .then(res => res.json())
+    return getUserById({ id: params.id ? params.id : '', signal: request.signal })
 }
 
-export function getCommentByUser({ request, params }: LoaderFunctionArgs): Promise<{} | null> {
+export function getLoaderCommentByUser({ request, params }: LoaderFunctionArgs): Promise<{} | null> {
 
-    return fetch(`https://jsonplaceholder.typicode.com/users/${params.id}/comments`, { signal: request.signal })
-        .then(res => res.json())
+    return getUserCommentsById({ id: params.id ? params.id : '', signal: request.signal })
 }
 
 export async function savePost({ request, params }: ActionFunctionArgs): Promise<{} | null> {
     switch (request.method) {
         case "POST": {
             let formData = await request.formData();
-            const res = await fetch(`https://jsonplaceholder.typicode.com/posts`, {
-                method: "POST",
-                body: formData
-            })
+            const res = await savePostLoader({ body: formData, signal: request.signal })
             console.log('res: ', res)
             if (!res?.ok) {
                 throw ('Error 404 bad request')
             }
-
+            return res
         }
         default: {
             throw new Response("", { status: 405 });

@@ -18,3 +18,16 @@ export const getUserCommentsById = ({ id, signal }: props) => {
     return fetch(`https://jsonplaceholder.typicode.com/users/${id}/comments`, { signal })
         .then(res => res.json())
 }
+
+type PropsPost = {
+    body: FormData;
+    signal: any;
+}
+
+export const savePostLoader = ({ body, signal }: PropsPost) => {
+    return fetch(`https://jsonplaceholder.typicode.com/posts`, {
+        method: "POST",
+        body,
+        signal,
+    })
+}
