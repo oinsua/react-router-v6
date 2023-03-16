@@ -1,7 +1,14 @@
+import { httpRequest, RequestData } from "../core/http";
+import { User } from "../model/user.model";
 
-export const getUsers = ({ signal }: { signal: any }) => {
-    return fetch('https://jsonplaceholder.typicode.com/users', { signal })
-        .then(res => res.json())
+export const getUsers = async ({ signal }: { signal: any }): Promise<User> => {
+    const requestData: RequestData<User> = {
+        url: `https://jsonplaceholder.typicode.com/users`,
+        method: 'GET',
+        signal
+    };
+    const response = await httpRequest<User>(requestData);
+    return response.data;
 }
 
 type props = {

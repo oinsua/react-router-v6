@@ -2,10 +2,12 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import Login from './pages/Login'
+import { themeMUI } from './themes'
 
 function App() {
   const [count, setCount] = useState(0)
 
+  console.log({ themeMUI })
   return (
     <div className="App">
       <Login />

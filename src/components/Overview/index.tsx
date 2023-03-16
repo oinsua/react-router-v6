@@ -15,6 +15,7 @@ export default function Overview() {
     const handleSubmit = () => {
         let formData = new FormData();
         submit(formData)
+        document.querySelector('form')?.reset()
     }
 
     return (
