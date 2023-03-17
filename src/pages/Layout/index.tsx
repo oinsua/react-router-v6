@@ -12,7 +12,7 @@ export default function Layout() {
                         <li><Link to={`/home`}>Home</Link></li>
                         <li><Link to={`/account`}>Accounts</Link></li>
                         <li><Link to={`/sales/overview`}>Sales</Link></li>
-                        <li>Expenses</li>
+                        <li><Link to={`/file`}>Files</Link></li>
                         <li>Reports</li>
                     </ul>
                 </nav>

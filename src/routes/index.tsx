@@ -4,6 +4,7 @@ import { lazy } from 'react';
 import { homeRoutes } from '../pages/Home/routes';
 import { salesRoutes } from '../pages/Sales/routes';
 import { accountRoutes } from '../pages/Account/routes';
+import { filesRoutes } from '../pages/Files/routes';
 import App from '../App';
 
 //import pages
@@ -18,5 +19,6 @@ export const routes = createBrowserRouter([
     },
     ...homeRoutes,
     ...salesRoutes,
-    ...accountRoutes
+    ...accountRoutes,
+    ...filesRoutes
 ])
