@@ -1,0 +1,8 @@
+.modaloverlay {
+    top: 0;
+    left: 0;
+}
+
+#modal-root {
+    overflow: hidden;
+}

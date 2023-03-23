@@ -14,7 +14,7 @@ const Details = lazy(() => import('../../../components/Details'))
 export const homeRoutes = [
     {
         path: "/home",
-        element: <Layout />,
+        element: <Layout title='Nuevo title' />,
         errorElement: <Error />,
         children: [
             {

@@ -8,9 +8,7 @@ import { routes } from './routes'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Suspense fallback={<div>Loading...</div>}>
-      <RouterProvider router={routes}>
-        <App />
-      </RouterProvider>
+      <RouterProvider router={routes} />
     </Suspense>
   </React.StrictMode>,
 )

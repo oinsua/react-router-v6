@@ -14,7 +14,7 @@ const UserComment = lazy(() => import('../components/UserComment'))
 export const accountRoutes = [
     {
         path: "/account",
-        element: <Layout />,
+        element: <Layout title='Accounts' />,
         errorElement: <Error />,
         children: [
             {

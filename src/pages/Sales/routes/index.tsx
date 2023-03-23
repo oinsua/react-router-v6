@@ -15,7 +15,7 @@ const Subscriptions = lazy(() => import('../../../components/Subscriptions'))
 export const salesRoutes = [
     {
         path: "/sales",
-        element: <Layout />,
+        element: <Layout title='Sales' />,
         errorElement: <Error />,
         children: [
             {
