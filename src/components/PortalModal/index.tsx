@@ -26,23 +26,20 @@ export const usePortal = () => {
 
     const Modal = ({ children }: { children: React.ReactNode }) => {
         const el = document.createElement("div");
-        const mount = document.getElementById("modal-root")!;
         useLayoutEffect(() => {
-            if (mount !== null) {
-                mount.appendChild(el);
+            el.setAttribute('id', 'portal-root')
+            if (el !== null) {
+                document.body.appendChild(el);
             }
             return () => {
-                if (mount !== null) {
-                    mount.removeChild(el)
+                if (el !== null) {
+                    document.body.removeChild(el)
                 }
             };
-        }, [el, mount]);
+        }, [el]);
         return isOpen ? createPortal(
             <div className="modal">
                 <div className="modal-content">
-                    <button className="modal-close" onClick={closeModal}>
-                        X
-                    </button>
                     {children}
                 </div>
             </div>

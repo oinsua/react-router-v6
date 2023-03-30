@@ -15,7 +15,7 @@ export default function Layout({ title = 'FakeBooks' }: { title?: string; }) {
     const closeModalO = () => setIsOpenO(false);
     const openModalO = () => setIsOpenO(true); */
 
-    const { Modal, openModal } = usePortal()
+    const { Modal, openModal, closeModal } = usePortal()
 
     return (
         <div className={styles.wrapper}>
@@ -32,6 +32,9 @@ export default function Layout({ title = 'FakeBooks' }: { title?: string; }) {
                 </nav>
                 <button onClick={openModal}>Open Portal Modal</button>
                 <Modal>
+                    <button className="modal-close" onClick={closeModal}>
+                        X
+                    </button>
                     <h1>Lorem ipsum dolor sit amet </h1>
                 </Modal>
                 {/* <button onClick={openModal}>Open Modal</button>
